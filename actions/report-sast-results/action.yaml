@@ -1,0 +1,17 @@
+name: "Report SAST results"
+
+description: "Report SAST scan results on the PR"
+
+author: "Bastion Technologies"
+
+inputs:
+  results-path:
+    description: "Path to the result file"
+    required: true
+    default: "report.json"
+
+outputs: {}
+
+runs:
+  using: "node20"
+  main: "index.mjs"
