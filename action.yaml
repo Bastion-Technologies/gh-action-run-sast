@@ -1,0 +1,36 @@
+name: "Run SAST"
+
+description: "Scan code for security vulnerabilities"
+
+author: "Bastion Technologies"
+
+inputs:
+  config:
+    description: "SAST configuration"
+    required: true
+    default: "p/default"
+
+outputs: {}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Scan code changes
+      uses: docker://semgrep/semgrep
+      with:
+        entrypoint: "semgrep"
+        args:
+          - "ci"
+          - "--config=${{ inputs.config }}"
+          - "--json"
+          - "--output=report.json"
+          - "--metrics=off"
+
+    - name: "Report results"
+      uses: "./actions/report-sast-results"
+      with:
+        results-path: "report.json"
+
+branding:
+  icon: "shield"
+  color: "blue"
