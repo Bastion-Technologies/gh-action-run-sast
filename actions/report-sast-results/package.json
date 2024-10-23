@@ -2,6 +2,7 @@
     "name": "report-sast-results",
     "version": "1.0.0",
     "description": "",
+    "type": "module",
     "main": "index.mjs",
     "scripts": {},
     "keywords": [],
