@@ -24,7 +24,7 @@ runs:
     - name: "Report results"
       uses: "Bastion-Technologies/gh-action-run-sast/actions/report-sast-results@main"
       with:
-        results-path: "report.json"
+        result-path: "report.json"
 
 branding:
   icon: "shield"
