@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { summary } from "@actions/core";
 import { issue, issueCommand } from "@actions/core/lib/command.js";
 import fs from "node:fs";
