@@ -1,0 +1,14 @@
+{
+    "name": "report-sast-results",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@actions/core": "^1.11.1",
+        "@actions/github": "^6.0.0"
+    }
+}
