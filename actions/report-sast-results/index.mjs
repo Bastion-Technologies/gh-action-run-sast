@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-import { summary } from "@actions/core";
+import { summary, getInput } from "@actions/core";
 import { issue, issueCommand } from "@actions/core/lib/command.js";
 import fs from "node:fs";
 
@@ -66,7 +65,7 @@ const loadSemgrepResult = (fileName) => {
 };
 
 const main = () => {
-  const fileName = core.getInput("result-path");
+  const fileName = getInput("result-path");
   const semgrepResult = loadSemgrepResult(fileName);
   reportOn(semgrepResult);
 };

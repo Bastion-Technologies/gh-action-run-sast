@@ -19,17 +19,13 @@ runs:
       uses: docker://semgrep/semgrep
       with:
         entrypoint: "semgrep"
-        args:
-          - "ci"
-          - "--config=${{ inputs.config }}"
-          - "--json"
-          - "--output=report.json"
-          - "--metrics=off"
+        args: "ci --config=${{ inputs.config }} --json --output=report.json --metrics=off"
 
     - name: "Report results"
-      uses: "./actions/report-sast-results"
+      if: failure()
+      uses: "Bastion-Technologies/gh-action-run-sast/actions/report-sast-results@main"
       with:
-        results-path: "report.json"
+        result-path: "report.json"
 
 branding:
   icon: "shield"

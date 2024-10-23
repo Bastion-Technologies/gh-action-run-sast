@@ -5,7 +5,7 @@ description: "Report SAST scan results on the PR"
 author: "Bastion Technologies"
 
 inputs:
-  results-path:
+  result-path:
     description: "Path to the result file"
     required: true
     default: "report.json"
