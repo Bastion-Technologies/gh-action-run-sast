@@ -22,7 +22,7 @@ runs:
         args: "ci --config=${{ inputs.config }} --json --output=report.json --metrics=off"
 
     - name: "Report results"
-      uses: "./actions/report-sast-results"
+      uses: "@Bastion-Technologies/gh-action-run-sast/actions/report-sast-results"
       with:
         results-path: "report.json"
 
