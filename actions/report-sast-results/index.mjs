@@ -26,14 +26,15 @@ const semgrepResultToTable = (results) => {
 const reportOn = (semgrepJson) => {
   issue("group", "Semgrep SAST");
   for (const error of semgrepJson.errors ?? []) {
+    const span = error.spans?.[0];
     issueCommand(
       "error",
       {
         file: error.path,
-        line: error.spans[0].start.line,
-        endLine: error.spans[0].end.line,
-        col: error.spans[0].start.col,
-        endCol: error.spans[0].end.col,
+        line: span?.start?.line,
+        endLine: span?.end?.line,
+        col: span?.start?.col,
+        endCol: span?.end?.col,
       },
       error.message
     );
