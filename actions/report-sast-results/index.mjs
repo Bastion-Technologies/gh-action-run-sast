@@ -36,7 +36,7 @@ const reportOn = (semgrepJson) => {
         col: span?.start?.col,
         endCol: span?.end?.col,
       },
-      `${error.message}\n\nRule ID: \`${error["check_id"]}\``
+      `${error.message} \`Rule ID: ${error["check_id"]}\``
     );
   }
   for (const error of semgrepJson.results ?? []) {
@@ -49,7 +49,7 @@ const reportOn = (semgrepJson) => {
         col: error.start.col,
         endCol: error.end.col,
       },
-      `${error.extra.message}\n\nRule ID: \`${error["check_id"]}\``
+      `${error.extra.message} \`Rule ID: ${error["check_id"]}\``
     );
   }
   issue("endgroup");
