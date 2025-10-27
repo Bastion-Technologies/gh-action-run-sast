@@ -39,7 +39,7 @@ const reportOn = (semgrepJson) => {
       `${error.message}\n\nRule ID: \`${error["check_id"]}\``
     );
   }
-  issueCommand("error", {}, "help this is broken");
+
   for (const error of semgrepJson.results ?? []) {
     issueCommand(
       "error",
