@@ -23,6 +23,8 @@ const semgrepResultToTable = (results) => {
   ];
 };
 
+const formatMessage = (error) => `${error.message}\n\nRule ID: \`${error["check_id"]}\``
+
 const reportOn = (semgrepJson) => {
   issue("group", "Semgrep SAST");
   for (const error of semgrepJson.errors ?? []) {
@@ -36,7 +38,7 @@ const reportOn = (semgrepJson) => {
         col: span?.start?.col,
         endCol: span?.end?.col,
       },
-      error.message
+      formatMessage(error)
     );
   }
   for (const error of semgrepJson.results ?? []) {
@@ -49,7 +51,7 @@ const reportOn = (semgrepJson) => {
         col: error.start.col,
         endCol: error.end.col,
       },
-      error.extra.message
+      formatMessage(error)
     );
   }
   issue("endgroup");
