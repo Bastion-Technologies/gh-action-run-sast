@@ -9,17 +9,36 @@ inputs:
     description: "SAST configuration"
     required: true
     default: "p/default"
+  exclude_rules:
+    description: "Comma-separated list of rule IDs to exclude from the scan"
+    required: false
+    default: ""
 
 outputs: {}
 
 runs:
   using: "composite"
   steps:
+    - name: Prepare exclude rules
+      id: prepare
+      shell: bash
+      run: |
+        exclude_args=""
+        if [ -n "${exclude_rules}" ]; then
+          IFS=',' read -ra RULES <<< "${exclude_rules}"
+          for rule in "${RULES[@]}"; do
+            exclude_args="$exclude_args --exclude-rule=\"${rule}\""
+          done
+        fi
+        echo "exclude_args=${exclude_args}" >> $GITHUB_OUTPUT
+      env:
+        exclude_rules: ${{ inputs.exclude_rules }}
+
     - name: Scan code changes
       uses: docker://semgrep/semgrep
       with:
         entrypoint: "semgrep"
-        args: "ci --config=${{ inputs.config }} --json --output=report.json --metrics=off"
+        args: "ci --config=${{ inputs.config }} --json --output=report.json --metrics=off ${{ steps.prepare.outputs.exclude_args }}"
 
     - name: "Report results"
       if: failure()
